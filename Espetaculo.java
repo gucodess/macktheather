@@ -5,11 +5,11 @@ public class Espetaculo {
     private double preco;
     private boolean[] assentos;
 
-    // public String getNome() {return nome;}
-    // public String getData() {return data;}
-    // public String getHora() {return hora;}
+    public String getNome() {return nome;}
+    public String getData() {return data;}
+    public String getHora() {return hora;}
     public double getPreco() {return preco;}
-    // public boolean[] getAssentos() {return assentos;}
+    public boolean[] getAssentos() {return assentos;}
 
     // public void setNome(String nome) {this.nome = nome;}
     // public void setData(String data) {this.data = data;}
@@ -26,11 +26,15 @@ public class Espetaculo {
     }
 
     public void apresentaAssentos(){
+        int totalAssento = assentos.length;
         for(int i = 0; i < assentos.length; i++){
-            System.out.print(assentos[i] + " ");
+            if(!assentos[i]){
+                System.out.print(totalAssento + " ");
+            } else{System.out.print("XX" + " ");}
             if((i + 1) % 10 == 0){
                 System.out.println();
             }
+            totalAssento --;
         }
     }
 
@@ -49,7 +53,13 @@ public class Espetaculo {
             default:
                 ent = new EntradaInteira();
         }
+        ent.setNumeroDoAssento(assento);
         return ent;
+    }
+
+    public void marcarAssento(int assento){
+        int index = assento - 1;
+        assentos[index] = true;
     }
 
     public String toString(){   

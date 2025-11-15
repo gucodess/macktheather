@@ -2,13 +2,13 @@ import java.util.ArrayList;
 
 public class Cliente {
     private String nome;
-    private String cpf; 
+    private String cpf;
+    private ArrayList<Pedido> pedidos;
 
     public Cliente(String nome, String cpf){
         this.nome = nome;
         this.cpf = cpf;
-        Pedido pedido;
-        ArrayList<Pedido> pedidos = new ArrayList<>();
+        this.pedidos = new ArrayList<Pedido>();
     }
 
     public void adicionaPedido(Pedido pedido){
