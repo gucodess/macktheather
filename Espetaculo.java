@@ -57,7 +57,7 @@ public class Espetaculo {
         return ent;
     }
 
-    public void marcarAssento(int assento){
+    private void marcarAssento(int assento){
         int index = assento - 1;
         assentos[index] = true;
     }
