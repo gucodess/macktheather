@@ -11,7 +11,10 @@ public class Cliente {
         this.pedidos = new ArrayList<Pedido>();
     }
 
+    public String getNome() { return nome;}
+    public String getCpf() {return cpf;}
+
     public void adicionaPedido(Pedido pedido){
-        
+        pedidos.add(pedido);
     }
 }

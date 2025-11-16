@@ -5,6 +5,7 @@ public class Teatro {
     private Pedido carrinho;
     private ArrayList<Espetaculo> listaEspetaculos;
     private Espetaculo espetaculoSelecionado;
+    private ArrayList<Cliente> clientes; 
 
     public Teatro() {
         this.listaEspetaculos = new ArrayList<>(); // Define lista vazia sem parâmetros no constructor
@@ -61,5 +62,18 @@ public class Teatro {
     public void novaEntrada(int tipo, int assento){
         Entrada novaEnt = espetaculoSelecionado.novaEntrada(tipo, assento);
         carrinho.adicionaEntrada(novaEnt);
+    }
+
+    public double finalizaCompra(String cpf){
+        double valorTotal = 0.0;
+        for (Cliente cliente : clientes) {
+            if(cpf.equals(cliente.getCpf())){
+                cliente.adicionaPedido(carrinho);
+                valorTotal = carrinho.calculaValorTotal();
+                this.carrinho = null;
+                return valorTotal;
+            }
+        }
+    return 0.0;
     }
 }
