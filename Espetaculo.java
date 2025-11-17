@@ -27,6 +27,7 @@ public class Espetaculo {
 
     public void apresentaAssentos(){
         int totalAssento = assentos.length;
+        System.out.println("\n||| Assentos Disponíveis |||");
         for(int i = 0; i < assentos.length; i++){
             if(!assentos[i]){
                 System.out.print(totalAssento + " ");
@@ -54,6 +55,7 @@ public class Espetaculo {
                 ent = new EntradaInteira();
         }
         ent.setNumeroDoAssento(assento);
+        marcarAssento(assento);
         return ent;
     }
 

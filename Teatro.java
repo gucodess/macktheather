@@ -5,16 +5,19 @@ public class Teatro {
     private Pedido carrinho;
     private ArrayList<Espetaculo> listaEspetaculos;
     private Espetaculo espetaculoSelecionado;
+    
     private ArrayList<Cliente> clientes; 
-
+    
     public Teatro() {
-        this.listaEspetaculos = new ArrayList<>(); // Define lista vazia sem parâmetros no constructor
+        // Define listas vazias sem parâmetros no constructor
+        this.listaEspetaculos = new ArrayList<>();
+        this.clientes = new ArrayList<>();
     }
+    
+    public Espetaculo getEspetaculoSelecionado() {return espetaculoSelecionado;}
+    public void novaCompra() {this.carrinho = new Pedido();}
 
-    public void novaCompra() {
-        this.carrinho = new Pedido();
-    }
-
+    
     public void cadastraEspetaculo() {
         Scanner sc = new Scanner(System.in);
 
@@ -47,20 +50,21 @@ public class Teatro {
     }
 
     public void selecionaEspetaculo(int numero){
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Selecione um espetáculo: ");
-        int espSelect = sc.nextInt();
-
         for(int i = 0; i<listaEspetaculos.size(); i++){
-            if(espSelect - 1 == i){
+            if(numero - 1 == i){
                 this.espetaculoSelecionado = listaEspetaculos.get(i);
                 espetaculoSelecionado.apresentaAssentos();
             }
         }
     }
 
+    public void novoCliente(Cliente cliente){
+        clientes.add(cliente);
+    }
+
     public void novaEntrada(int tipo, int assento){
         Entrada novaEnt = espetaculoSelecionado.novaEntrada(tipo, assento);
+        novaEnt.setEspetaculo(espetaculoSelecionado);
         carrinho.adicionaEntrada(novaEnt);
     }
 
@@ -70,10 +74,10 @@ public class Teatro {
             if(cpf.equals(cliente.getCpf())){
                 cliente.adicionaPedido(carrinho);
                 valorTotal = carrinho.calculaValorTotal();
-                this.carrinho = null;
+                this.carrinho = null; // limpa o pedido após finalizar a compra
                 return valorTotal;
-            }
+            } else {System.out.println("ERRO: CPF não cadastrado!");}
         }
-    return 0.0;
+        return 0.0;
     }
 }
