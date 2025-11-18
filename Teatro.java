@@ -80,4 +80,7 @@ public class Teatro {
         }
         return 0.0;
     }
+
+    // Apresentar os assentos com XX
+    
 }

@@ -43,15 +43,51 @@ public class Main {
 
                     mackTeatro.selecionaEspetaculo(espSelect);
                     boolean optNovaEnt = true;
+
+                    Pedido pedido = new Pedido(); // CRIANDO O PEDIDO
+
                     do {
                         System.out.print("Selecione um assento: ");
                         int assentoSelect = sc.nextInt(); sc.nextLine();
+
                         if(assentoSelect < 1 || assentoSelect > 50 || mackTeatro.getEspetaculoSelecionado().getAssentos()[assentoSelect - 1]){
                             System.out.println("ERRO: Assento inserido é inválido ou já está ocupado!");
-                            continue;
+                        } 
+                        
+                        else {
+                            System.out.println("||| Tipos de entrada:");
+                            System.out.println("1) Inteira");
+                            System.out.println("2) Meia");
+                            System.out.println("3) Professor");
+
+                            System.out.print("Selecione o tipo: ");
+                            int tipo = sc.nextInt();
+                            sc.nextLine();
+
+                            mackTeatro.novaEntrada(tipo, assentoSelect);
+                            mackTeatro.getEspetaculoSelecionado().getAssentos()[assentoSelect - 1] = true;
+
+                            System.out.println("Assento comprado com sucesso !");
+                            mackTeatro.getEspetaculoSelecionado().apresentaAssentos();
+
+                            System.out.println("Deseja comprar outra entrada ? (s/n): ");
+                            String opt = sc.nextLine(); // opt é a variavel se a pessoa quer ou não comprar mais entardas
+
+                            if (opt.equals("n")){
+                                optNovaEnt = false;
+                            }
                         }
-// POR FAVOR CONTINUEM DAQUI
+                        
                     } while (optNovaEnt);
+
+                    System.out.println("Digite o CPF do cliente: ");
+                    String recebeCpf = sc.nextLine();
+                    
+                    double total = pedido.calculaValorTotal();
+
+                    System.out.println("Compra finalizada no CPF: " + recebeCpf);
+                    System.out.printf("Valor total: R$ %.2f\n", total);
+                    break;
             }
 
 
