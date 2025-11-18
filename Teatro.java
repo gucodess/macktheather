@@ -53,7 +53,9 @@ public class Teatro {
         for(int i = 0; i<listaEspetaculos.size(); i++){
             if(numero - 1 == i){
                 this.espetaculoSelecionado = listaEspetaculos.get(i);
-                espetaculoSelecionado.apresentaAssentos();
+            }
+            else {
+                System.out.println("ERRO: Espetáculo não encontrado!");
             }
         }
     }

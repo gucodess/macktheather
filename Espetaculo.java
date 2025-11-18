@@ -60,7 +60,7 @@ public class Espetaculo {
     }
 
     private void marcarAssento(int assento){
-        int index = assento - 1;
+        int index = Math.abs(assento - 50); //Inverte o index ao assento selecionado. Por exemplo, se selecionar 47, o index será 3.
         assentos[index] = true;
     }
 

@@ -6,19 +6,19 @@ public class Main {
         int optMenu;
         Teatro mackTeatro = new Teatro();
 
-        do{
+        do {
             System.out.print(
-                "*** MACK THEATER ***\n" +
-                "1) Cadastrar Espetáculo\n" +
-                "2) Cadastrar Cliente\n" +
-                "3) Compra de Entradas\n" +
-                "4) Sair\n" +
-                "Selecione uma opção: "
-            );
+                    "\n*** MACK THEATER ***\n" +
+                            "1) Cadastrar Espetáculo\n" +
+                            "2) Cadastrar Cliente\n" +
+                            "3) Compra de Entradas\n" +
+                            "4) Sair\n" +
+                            "Selecione uma opção: ");
             optMenu = sc.nextInt();
             sc.nextLine();
+            System.out.println();
 
-            switch(optMenu){
+            switch (optMenu) {
                 case 1:
                     mackTeatro.cadastraEspetaculo();
                     break;
@@ -37,61 +37,54 @@ public class Main {
                     System.out.println("*** VENDA DE ENTRADAS - ESPETÁCULOS ***");
                     mackTeatro.apresentaEspetaculos();
 
-                    System.out.print("Selecione um espetáculo: ");
+                    System.out.print("\nSelecione um espetáculo: ");
                     int espSelect = sc.nextInt();
                     sc.nextLine();
 
                     mackTeatro.selecionaEspetaculo(espSelect);
                     boolean optNovaEnt = true;
 
-                    Pedido pedido = new Pedido(); // CRIANDO O PEDIDO
-
                     do {
-                        System.out.print("Selecione um assento: ");
-                        int assentoSelect = sc.nextInt(); sc.nextLine();
+                        mackTeatro.getEspetaculoSelecionado().apresentaAssentos();
+                        System.out.print("\nSelecione um assento: ");
+                        int assentoSelect = sc.nextInt();
+                        sc.nextLine();
 
-                        if(assentoSelect < 1 || assentoSelect > 50 || mackTeatro.getEspetaculoSelecionado().getAssentos()[assentoSelect - 1]){
-                            System.out.println("ERRO: Assento inserido é inválido ou já está ocupado!");
-                        } 
-                        
+                        if (
+                            assentoSelect < 1 || 
+                            assentoSelect > 50 ||
+                            mackTeatro.getEspetaculoSelecionado().getAssentos()[assentoSelect - 1]
+                        ) {System.out.println("ERRO: Assento inserido é inválido ou já está ocupado!");}
+
                         else {
-                            System.out.println("||| Tipos de entrada:");
+                            System.out.println("\n||| Tipos de Entrada |||");
                             System.out.println("1) Inteira");
-                            System.out.println("2) Meia");
-                            System.out.println("3) Professor");
+                            System.out.printf("2) Meia %35s", "50% do valor da entrada\n");
+                            System.out.printf("3) Professor %30s", "40% do valor da entrada\n");
 
-                            System.out.print("Selecione o tipo: ");
-                            int tipo = sc.nextInt();
-                            sc.nextLine();
+                            System.out.print("Selecione um tipo de entrada: ");
+                            int tipo = sc.nextInt(); sc.nextLine();
 
                             mackTeatro.novaEntrada(tipo, assentoSelect);
-                            mackTeatro.getEspetaculoSelecionado().getAssentos()[assentoSelect - 1] = true;
 
-                            System.out.println("Assento comprado com sucesso !");
-                            mackTeatro.getEspetaculoSelecionado().apresentaAssentos();
+                            System.out.print("\nDeseja comprar outra entrada (S/N)?: ");
+                            String opt = sc.nextLine(); // opt é a variavel se a pessoa quer ou não comprar mais entradas
 
-                            System.out.println("Deseja comprar outra entrada ? (s/n): ");
-                            String opt = sc.nextLine(); // opt é a variavel se a pessoa quer ou não comprar mais entardas
-
-                            if (opt.equals("n")){
+                            if (opt.toLowerCase().equals("n")) {
                                 optNovaEnt = false;
                             }
                         }
-                        
+
                     } while (optNovaEnt);
 
-                    System.out.println("Digite o CPF do cliente: ");
+                    System.out.print("\nInforme o CPF do Cliente Cadastrado: ");
                     String recebeCpf = sc.nextLine();
-                    
-                    double total = pedido.calculaValorTotal();
 
-                    System.out.println("Compra finalizada no CPF: " + recebeCpf);
-                    System.out.printf("Valor total: R$ %.2f\n", total);
+                    double total = mackTeatro.finalizaCompra(recebeCpf);
+                    System.out.printf("Valor total: R$ %.2f\n\n", total);
                     break;
             }
-
-
-        } while(optMenu != 4);
-
+        } while (optMenu != 4);
+        System.out.println("Encerrando programa...");
     }
 }
